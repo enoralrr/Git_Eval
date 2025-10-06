@@ -1,30 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ANIMATION D'ENTRÉE */
 body {
     font-family: 'Poppins', sans-serif;
     background: #f8f9fb;
     color: #333;
     overflow-x: hidden;
-    animation: pageFade 0.6s ease;
 }
 
-@keyframes pageFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* NAVBAR */
+/* NAVBAR STYLÉE */
 .navbar {
     position: relative;
-    margin: 1.5rem auto;
+    margin: 1rem auto;
     width: 90%;
     max-width: 1000px;
     background: #fff;
@@ -86,20 +78,45 @@ body {
     color: #0078ff;
 }
 
+/* Animation d’entrée de page */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
 /* HERO SECTION */
 .hero {
     position: relative;
     background: linear-gradient(135deg, #0078ff, #00b4d8);
     color: #fff;
-    padding: 5rem 2rem 120px;
+    padding-bottom: 100px;
     text-align: center;
     overflow: hidden;
+}
+
+.hero.small {
+    padding-bottom: 60px;
+}
+
+.hero-content {
+    padding: 5rem 2rem 2rem;
 }
 
 .hero-content h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .hero-content p {
@@ -131,7 +148,7 @@ body {
     left: 0;
     width: 100%;
     height: 120px;
-    background: url('https://svgshare.com/i/15Wy.svg') repeat-x;
+    background: url('https://cdn.jsdelivr.net/gh/konpa/devicon/icons/waves/waves.svg') repeat-x;
     background-size: cover;
     animation: wave 8s linear infinite;
 }
@@ -165,6 +182,32 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
+/* COMMANDS PAGE */
+.commands {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+}
+
+.command-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+}
+
+.command-card:hover {
+    transform: translateY(-10px);
+}
+
+.command-card h3 {
+    color: #0078ff;
+    margin-bottom: 0.8rem;
+    font-family: monospace;
+}
+
 /* FOOTER */
 footer {
     text-align: center;
@@ -172,34 +215,4 @@ footer {
     background: #f1f1f1;
     font-size: 0.9rem;
     color: #555;
-}
-
-/* ANIMATION KEYFRAMES */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .hero-content h2 {
-        font-size: 2rem;
-    }
-
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 }
