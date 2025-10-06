@@ -11,16 +11,14 @@
 </head>
 <body>
     <header class="hero">
-        <nav class="top-nav">
-            <a class="logo" href="index.html">Git Présentation</a>
-            <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
-            <ul id="main-nav" class="nav-links">
-                <li><a href="#pourquoi">Pourquoi Git</a></li>
-                <li><a href="#workflow">Workflow</a></li>
-                <li><a href="#parcours">Parcours</a></li>
-                <li><a href="commandes.html">Commandes</a></li>
+        <nav>
+            <h1 class="logo">🚀 Git Présentation</h1>
+            <ul>
+                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="commandes.html">Commandes Git</a></li>
             </ul>
         </nav>
+
         <div class="hero-content">
             <span class="badge">Apprendre Git étape par étape</span>
             <h1>Maîtrisez Git pour collaborer sans stress</h1>
@@ -44,144 +42,29 @@
                 <p>Adoptez les bons rituels pour travailler à plusieurs sans perdre votre historique.</p>
             </article>
         </div>
+
+        <div class="wave"></div>
     </header>
 
-    <main class="content">
-        <section id="pourquoi" class="section">
-            <div class="section-heading">
-                <h2>Pourquoi Git change la donne</h2>
-                <p>Git est bien plus qu'un simple système de sauvegarde&nbsp;: c'est un véritable journal de bord pour vos projets.</p>
-            </div>
-            <div class="feature-grid">
-                <article>
-                    <h3>Historique sûr</h3>
-                    <p>Chaque commit capture un instant précis. Revenez sur une version, identifiez un bug et sécurisez votre progression.</p>
-                </article>
-                <article>
-                    <h3>Branches libres</h3>
-                    <p>Expérimentez de nouvelles idées sans impacter la version stable et fusionnez quand vous êtes prêt.</p>
-                </article>
-                <article>
-                    <h3>Travail en équipe</h3>
-                    <p>Synchronisez-vous avec vos coéquipiers, répartissez les tâches et coordonnez les fusionnements en toute sérénité.</p>
-                </article>
-                <article>
-                    <h3>Transparence totale</h3>
-                    <p>Suivez qui a fait quoi, commentez les modifications et validez rapidement les contributions.</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="workflow" class="section workflow-section">
-            <div class="section-heading">
-                <h2>Le workflow essentiel</h2>
-                <p>Retrouvez les grandes étapes à répéter sur chaque fonctionnalité. Chaque bloc correspond à un groupe de commandes clés.</p>
-            </div>
-            <div class="workflow-grid">
-                <article>
-                    <span class="workflow-step">1</span>
-                    <h3>Préparer l'environnement</h3>
-                    <p>Initialisez un dépôt ou clonez une base existante, configurez votre identité et vérifiez l'état du projet.</p>
-                    <ul>
-                        <li><code>git init</code></li>
-                        <li><code>git clone &lt;url&gt;</code></li>
-                        <li><code>git config --global user.name</code></li>
-                    </ul>
-                </article>
-                <article>
-                    <span class="workflow-step">2</span>
-                    <h3>Façonner une fonctionnalité</h3>
-                    <p>Créez une branche dédiée, avancez par petits commits et documentez vos décisions techniques.</p>
-                    <ul>
-                        <li><code>git checkout -b feature/ui</code></li>
-                        <li><code>git add fichier.html</code></li>
-                        <li><code>git commit -m "Ajoute le formulaire"</code></li>
-                    </ul>
-                </article>
-                <article>
-                    <span class="workflow-step">3</span>
-                    <h3>Partager et synchroniser</h3>
-                    <p>Poussez votre travail vers le dépôt distant, récupérez les dernières nouveautés et résolvez d'éventuels conflits.</p>
-                    <ul>
-                        <li><code>git fetch origin</code></li>
-                        <li><code>git merge origin/main</code></li>
-                        <li><code>git push origin feature/ui</code></li>
-                    </ul>
-                </article>
-                <article>
-                    <span class="workflow-step">4</span>
-                    <h3>Valider et fusionner</h3>
-                    <p>Ouvrez une pull request, demandez un relecteur, corrigez, puis fusionnez sur la branche principale.</p>
-                    <ul>
-                        <li>Revue de code</li>
-                        <li><code>git rebase main</code></li>
-                        <li><code>git merge --no-ff</code></li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <section id="parcours" class="section learning-journey">
-            <div class="section-heading">
-                <h2>Votre parcours d'apprentissage</h2>
-                <p>Suivez ce cheminement pour progresser régulièrement en combinant théorie, pratique et collaboration.</p>
-            </div>
-            <ol class="journey">
-                <li>
-                    <h3>Comprendre les bases</h3>
-                    <p>Initiez-vous au vocabulaire Git, installez l'outil et réalisez vos premiers commits localement.</p>
-                </li>
-                <li>
-                    <h3>Automatiser ses habitudes</h3>
-                    <p>Découvrez les branches, pratiquez les merges et adoptez une stratégie de messages de commit claire.</p>
-                </li>
-                <li>
-                    <h3>Collaborer efficacement</h3>
-                    <p>Travaillez avec un dépôt distant, résolvez des conflits et maîtrisez les pull requests.</p>
-                </li>
-                <li>
-                    <h3>Optimiser et aller plus loin</h3>
-                    <p>Explorez le rebase interactif, les stashes, les hooks et les workflows de déploiement continu.</p>
-                </li>
-            </ol>
-        </section>
-
-        <section class="section callout">
-            <div class="callout-inner">
-                <div>
-                    <h2>Prêt pour une session pratique&nbsp;?</h2>
-                    <p>Continuez avec la fiche de commandes détaillée pour lancer votre premier projet guidé.</p>
-                </div>
-                <a class="cta-button" href="commandes.html">Ouvrir la fiche mémo</a>
-            </div>
-        </section>
-
-        <section class="section resources">
-            <div class="section-heading">
-                <h2>Ressources à garder sous la main</h2>
-            </div>
-            <div class="resource-grid">
-                <article>
-                    <h3>Repository exemple</h3>
-                    <p>Cloner un dépôt d'entraînement pour tester les workflows sans risque et comparer vos résultats.</p>
-                </article>
-                <article>
-                    <h3>Guides visuels</h3>
-                    <p>Retrouvez des schémas de branches, des scénarios de merge et des fiches explicatives prêtes à l'emploi.</p>
-                </article>
-                <article>
-                    <h3>Checklist d'équipe</h3>
-                    <p>Rédigez une convention de nommage, définissez vos rituels et partagez la bonne pratique du rebase.</p>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div>
-            <p>© 2024 Découverte de Git — Faites évoluer vos projets en toute confiance.</p>
-            <p><a href="commandes.html">Accéder aux commandes essentielles</a></p>
+    <section class="about">
+        <div class="card">
+            <h3>🌱 Qu’est-ce que Git ?</h3>
+            <p>Git permet de suivre les changements apportés à un projet, de collaborer facilement, et de revenir à tout moment à une version précédente du code.</p>
         </div>
+
+        <div class="card">
+            <h3>🧠 Pourquoi l’utiliser ?</h3>
+            <p>Il facilite le travail en équipe, améliore la traçabilité et sécurise vos versions de code. C’est l’outil incontournable du développement moderne.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌍 Open Source</h3>
+            <p>Git est un logiciel libre créé par Linus Torvalds. Il est gratuit, rapide et compatible avec toutes les plateformes.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Créé avec ❤️ par Yoann et Edwin • 2025</p>
     </footer>
 
     <script>
