@@ -244,20 +244,29 @@ code {
     box-shadow: var(--shadow-soft);
 }
 
-.concept-grid details,
-.faq-grid details {
+/* ---- NOUVELLE VERSION ---- */
+.concept-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    justify-content: center;
+}
+
+.concept-grid details {
+    position: relative;
     background: var(--surface);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     padding: 1.4rem 1.6rem;
     box-shadow: var(--shadow-light);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 260px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: visible;
 }
 
-.concept-grid details:hover,
-.faq-grid details:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(31, 42, 61, 0.08);
+.concept-grid details:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(31, 42, 61, 0.1);
 }
 
 summary {
@@ -288,9 +297,37 @@ details[open] summary::after {
     transform: rotate(-135deg);
 }
 
+/* 💡 Contenu flottant */
 details p {
-    margin: 1rem 0 0;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    padding: 1rem 1.4rem;
+    margin-top: 0.6rem;
     color: var(--ink-700);
+    animation: expand 0.25s ease;
+    z-index: 10;
+}
+
+@keyframes expand {
+    from {
+        opacity: 0;
+        transform: translateY(-5px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Pour éviter le chevauchement brutal quand plusieurs sont ouverts */
+.concept-grid details[open] {
+    z-index: 5;
 }
 
 details p em {
