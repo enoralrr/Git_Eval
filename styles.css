@@ -534,6 +534,28 @@ details p em {
 
 .site-footer a { color: var(--accent); }
 
+#konami-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: linear-gradient(135deg, rgba(47, 60, 87, 0.96), rgba(28, 39, 60, 0.92));
+    color: #f9fbff;
+    font-weight: 700;
+    padding: 1rem 1.4rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 40px rgba(12, 18, 32, 0.35);
+    transform: translateY(140%);
+    opacity: 0;
+    transition: transform 0.32s ease, opacity 0.32s ease;
+    pointer-events: none;
+    z-index: 999;
+}
+
+#konami-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 @media (max-width: 960px) {
     .nav-links {
         flex-wrap: wrap;
