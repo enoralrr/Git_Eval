@@ -3,199 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commandes Git essentielles</title>
+    <title>Atelier Git — Commandes essentielles</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="hero small">
-        <nav>
-            <h1 class="logo">🚀 Git Présentation</h1>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="commandes.html" class="active">Commandes Git</a></li>
+    <header class="page-hero">
+        <nav class="top-nav">
+            <a class="logo" href="index.html">Atelier Git</a>
+            <ul class="nav-links">
+                <li><a href="index.html#intro">Découvrir</a></li>
+                <li><a href="index.html#concepts">Concepts</a></li>
+                <li><a href="index.html#workflow">Workflow</a></li>
+                <li><a href="index.html#ressources">Ressources</a></li>
+                <li><a class="active" href="commandes.html">Commandes</a></li>
             </ul>
         </nav>
-
-        <div class="hero-content">
-            <h2>Les commandes Git essentielles</h2>
-            <p>Apprenez les bases pour maîtriser le versionnage de vos projets.</p>
+        <div class="page-title">
+            <span class="badge">Référence rapide</span>
+            <h1>Commandes Git indispensables</h1>
+            <p>Un mémo interactif pour gagner du temps, structurer vos commits et collaborer efficacement.</p>
         </div>
     </header>
 
     <main class="content">
-        <section class="section command-section">
-            <div class="section-heading">
-                <h2>Configuration et découverte</h2>
-                <p>Commencez par paramétrer Git pour votre machine puis inspectez les bases de votre dépôt.</p>
-            </div>
-            <div class="command-grid">
+        <section class="section command-intro">
+            <div class="intro-grid">
                 <article>
-                    <h3>Initialiser</h3>
-                    <p><code>git init</code></p>
-                    <p>Crée un dépôt Git dans le dossier courant.</p>
+                    <h3>Configurer l'environnement</h3>
+                    <p>Avant toute chose, définissez votre identité et vérifiez la version installée.</p>
+                    <code>git config --global user.name "Votre Nom"</code>
+                    <code>git --version</code>
                 </article>
                 <article>
-                    <h3>Cloner un projet</h3>
-                    <p><code>git clone &lt;url&gt;</code></p>
-                    <p>Copie un dépôt distant tout en configurant l'origine.</p>
+                    <h3>Se repérer</h3>
+                    <p>Inspectez l'état du dépôt et parcourez rapidement l'historique pour comprendre le contexte.</p>
+                    <code>git status</code>
+                    <code>git log --oneline --graph</code>
                 </article>
                 <article>
-                    <h3>Configurer son identité</h3>
-                    <p><code>git config --global user.name "Nom"</code></p>
-                    <p>Définit le nom utilisé dans les commits.</p>
-                </article>
-                <article>
-                    <h3>Inspecter l'état</h3>
-                    <p><code>git status</code></p>
-                    <p>Affiche les fichiers suivis, modifiés ou ignorés.</p>
+                    <h3>Synchroniser</h3>
+                    <p>Gardez votre travail à jour avec la branche principale avant de démarrer une nouvelle tâche.</p>
+                    <code>git fetch origin</code>
+                    <code>git pull --rebase</code>
                 </article>
             </div>
         </section>
 
-        <section class="section command-section">
+        <section class="section command-catalog">
             <div class="section-heading">
-                <h2>Construire des commits utiles</h2>
-                <p>Structurez vos changements en petites unités cohérentes pour collaborer plus facilement.</p>
+                <h2>Catalogue par situations</h2>
+                <p>Dépliez une section pour découvrir les commandes adaptées à chaque moment du workflow.</p>
             </div>
-            <div class="command-grid">
-                <article>
-                    <h3>Préparer</h3>
-                    <p><code>git add &lt;fichier&gt;</code></p>
-                    <p>Ajoute un fichier suivi dans la zone de préparation.</p>
-                </article>
-                <article>
-                    <h3>Valider</h3>
-                    <p><code>git commit -m "message"</code></p>
-                    <p>Enregistre les modifications préparées avec un message clair.</p>
-                </article>
-                <article>
-                    <h3>Modifier le dernier commit</h3>
-                    <p><code>git commit --amend</code></p>
-                    <p>Complète ou corrige le commit précédent sans en créer un nouveau.</p>
-                </article>
-                <article>
-                    <h3>Mettre de côté</h3>
-                    <p><code>git stash push -m "expérimentation"</code></p>
-                    <p>Sauvegarde des changements temporaires pour revenir sur une base propre.</p>
-                </article>
+            <div class="command-groups">
+                <details open>
+                    <summary>Démarrer un projet</summary>
+                    <div class="command-list">
+                        <article class="command-card">
+                            <h3>Initialiser</h3>
+                            <code>git init</code>
+                            <p>Crée un nouveau dépôt Git vide dans le dossier courant.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Cloner</h3>
+                            <code>git clone &lt;url&gt;</code>
+                            <p>Télécharge un dépôt existant et configure l'origine distante.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Ajouter un distant</h3>
+                            <code>git remote add origin &lt;url&gt;</code>
+                            <p>Associe votre dépôt local à un dépôt distant (GitHub, GitLab...).</p>
+                        </article>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Construire des commits utiles</summary>
+                    <div class="command-list">
+                        <article class="command-card">
+                            <h3>Préparer</h3>
+                            <code>git add &lt;fichier&gt;</code>
+                            <p>Place les modifications dans l'index avant de les enregistrer.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Valider</h3>
+                            <code>git commit -m "message"</code>
+                            <p>Enregistre les changements dans l'historique avec un message clair.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Corriger</h3>
+                            <code>git commit --amend</code>
+                            <p>Modifie le dernier commit (message ou contenu) sans en créer un nouveau.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Mettre de côté</h3>
+                            <code>git stash push -m "note"</code>
+                            <p>Sauvegarde vos modifications en cours pour revenir sur une base propre.</p>
+                        </article>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Gérer les branches</summary>
+                    <div class="command-list">
+                        <article class="command-card">
+                            <h3>Créer une branche</h3>
+                            <code>git checkout -b feature/ui</code>
+                            <p>Crée et bascule sur une nouvelle branche pour isoler votre travail.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Changer de branche</h3>
+                            <code>git switch feature/ui</code>
+                            <p>Basculer vers une branche existante. Alternative moderne à <code>checkout</code>.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Fusionner</h3>
+                            <code>git merge feature/ui</code>
+                            <p>Intègre les commits de la branche cible dans la branche courante.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Réécrire proprement</h3>
+                            <code>git rebase main</code>
+                            <p>Rejoue vos commits par-dessus la branche principale pour un historique linéaire.</p>
+                        </article>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Collaborer avec l'équipe</summary>
+                    <div class="command-list">
+                        <article class="command-card">
+                            <h3>Publier</h3>
+                            <code>git push -u origin feature/ui</code>
+                            <p>Envoie vos commits et définit la branche distante par défaut.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Mettre à jour</h3>
+                            <code>git pull --rebase</code>
+                            <p>Récupère les nouveautés distantes et réapplique vos commits par-dessus.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Suivre une branche distante</h3>
+                            <code>git fetch origin feature/ui</code>
+                            <p>Télécharge la branche distante sans fusion automatique.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Étiqueter une release</h3>
+                            <code>git tag v1.0.0</code>
+                            <p>Crée un repère pour une version stable. Poussez-le avec <code>git push origin --tags</code>.</p>
+                        </article>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Diagnostiquer et corriger</summary>
+                    <div class="command-list">
+                        <article class="command-card">
+                            <h3>Comparer</h3>
+                            <code>git diff main..feature/ui</code>
+                            <p>Affiche les différences entre deux branches ou commits.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Blâmer</h3>
+                            <code>git blame fichier.js</code>
+                            <p>Identifie l'auteur et le commit à l'origine de chaque ligne.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Trouver un bug</h3>
+                            <code>git bisect</code>
+                            <p>Automatise la recherche du commit fautif en testant des points intermédiaires.</p>
+                        </article>
+                        <article class="command-card">
+                            <h3>Retrouver un état</h3>
+                            <code>git reflog</code>
+                            <p>Liste toutes les positions récentes de HEAD pour récupérer un travail perdu.</p>
+                        </article>
+                    </div>
+                </details>
             </div>
         </section>
 
-        <section class="section command-section">
-            <div class="section-heading">
-                <h2>Maîtriser les branches</h2>
-                <p>Les branches permettent de travailler en parallèle et d'explorer sans casser la version principale.</p>
-            </div>
-            <div class="command-grid">
-                <article>
-                    <h3>Créer</h3>
-                    <p><code>git branch feature/auth</code></p>
-                    <p>Prépare une nouvelle branche basée sur la branche courante.</p>
-                </article>
-                <article>
-                    <h3>Bascule rapide</h3>
-                    <p><code>git checkout feature/auth</code></p>
-                    <p>Change la branche active dans l'arborescence de travail.</p>
-                </article>
-                <article>
-                    <h3>Fusionner</h3>
-                    <p><code>git merge feature/auth</code></p>
-                    <p>Intègre la branche choisie dans la branche courante.</p>
-                </article>
-                <article>
-                    <h3>Réorganiser</h3>
-                    <p><code>git rebase main</code></p>
-                    <p>Rejoue vos commits par-dessus une branche à jour pour une histoire linéaire.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section command-section">
-            <div class="section-heading">
-                <h2>Collaborer avec un dépôt distant</h2>
-                <p>Synchronisez votre travail avec votre équipe et récupérez les dernières mises à jour.</p>
-            </div>
-            <div class="command-grid">
-                <article>
-                    <h3>Créer un lien distant</h3>
-                    <p><code>git remote add origin &lt;url&gt;</code></p>
-                    <p>Associe un dépôt distant au dépôt local.</p>
-                </article>
-                <article>
-                    <h3>Récupérer les nouveautés</h3>
-                    <p><code>git fetch origin</code></p>
-                    <p>Télécharge les branches distantes sans toucher à votre travail local.</p>
-                </article>
-                <article>
-                    <h3>Synchroniser proprement</h3>
-                    <p><code>git pull --rebase</code></p>
-                    <p>Réapplique vos commits au-dessus des derniers changements pour éviter les merges inutiles.</p>
-                </article>
-                <article>
-                    <h3>Publier sa branche</h3>
-                    <p><code>git push -u origin feature/ui</code></p>
-                    <p>Envoie vos commits et définit la branche distante par défaut.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section tips-section">
-            <div class="tips-grid">
-                <article>
-                    <h3>Diagnostiquer</h3>
+        <section class="section memo">
+            <div class="memo-grid">
+                <article class="memo-card">
+                    <h3>Raccourcis utiles</h3>
                     <ul>
-                        <li><code>git log --oneline --graph</code></li>
-                        <li><code>git diff main..feature/ui</code></li>
-                        <li><code>git blame index.html</code></li>
+                        <li><code>git status -sb</code> pour un état condensé.</li>
+                        <li><code>git log --since="2 weeks"</code> pour filtrer l'historique.</li>
+                        <li><code>git diff --staged</code> avant le commit.</li>
+                        <li><code>git clean -fd</code> pour supprimer les fichiers générés.</li>
                     </ul>
                 </article>
-                <article>
+                <article class="memo-card accent">
+                    <h3>Workflow distant</h3>
+                    <ol>
+                        <li>Récupérer les mises à jour <code>git fetch</code></li>
+                        <li>Rebaser ou fusionner votre branche</li>
+                        <li>Pousser vos commits <code>git push</code></li>
+                        <li>Ouvrir une pull request et demander une revue</li>
+                    </ol>
+                </article>
+                <article class="memo-card">
                     <h3>Bonnes pratiques</h3>
-                    <ul>
-                        <li>Commencez vos messages par un verbe à l'infinitif.</li>
-                        <li>Synchronisez-vous avant de fusionner une branche.</li>
-                        <li>Nettoyez vos branches une fois fusionnées.</li>
-                    </ul>
+                    <p>Privilégiez des commits de moins de 30 lignes modifiées, catégorisez vos messages (feat, fix, docs) et taguez vos releases stables.</p>
                 </article>
-                <article>
-                    <h3>Aller plus loin</h3>
-                    <ul>
-                        <li><code>git cherry-pick</code> pour récupérer un commit.</li>
-                        <li><code>git bisect</code> pour retrouver l'origine d'un bug.</li>
-                        <li><code>git reflog</code> pour remonter dans l'historique local.</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <section class="section callout">
-            <div class="callout-inner">
-                <div>
-                    <h2>Envie d'une feuille mémo imprimable&nbsp;?</h2>
-                    <p>Copiez ces commandes ou adaptez-les à votre équipe pour bâtir un kit Git personnalisé.</p>
-                </div>
-                <a class="ghost-button" href="index.html">Retourner à l'apprentissage</a>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div>
-            <p>Besoin d'un rappel&nbsp;? <a href="index.html">Retournez à l'accueil</a></p>
-        </div>
+        <p>Besoin d'une piqûre de rappel&nbsp;? <a href="index.html">Retour à l'atelier</a></p>
     </footer>
-
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const nav = document.getElementById('main-nav');
-        navToggle.addEventListener('click', () => {
-            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-            navToggle.setAttribute('aria-expanded', String(!expanded));
-            nav.classList.toggle('open');
-        });
-    </script>
 </body>
 </html>

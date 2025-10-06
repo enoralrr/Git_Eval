@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Découverte de Git</title>
+    <title>Atelier Git — Comprendre, pratiquer, collaborer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,70 +11,204 @@
 </head>
 <body>
     <header class="hero">
-        <nav>
-            <h1 class="logo">🚀 Git Présentation</h1>
-            <ul>
-                <li><a href="index.html" class="active">Accueil</a></li>
-                <li><a href="commandes.html">Commandes Git</a></li>
+        <nav class="top-nav">
+            <a class="logo" href="index.html">Atelier Git</a>
+            <ul class="nav-links">
+                <li><a href="#intro">Découvrir</a></li>
+                <li><a href="#concepts">Concepts</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+                <li><a href="commandes.html">Commandes</a></li>
             </ul>
         </nav>
-
         <div class="hero-content">
-            <span class="badge">Apprendre Git étape par étape</span>
-            <h1>Maîtrisez Git pour collaborer sans stress</h1>
-            <p>De la première initialisation à la gestion d'un projet d'équipe complet, ce guide visuel vous accompagne pour adopter les bons réflexes et devenir autonome avec Git.</p>
+            <span class="badge">Versionner avec confiance</span>
+            <h1>Comprendre Git pour collaborer sereinement</h1>
+            <p>Plongez dans les notions clés, appliquez un workflow moderne et adoptez les bons réflexes pour vos projets solo ou en équipe.</p>
             <div class="hero-actions">
-                <a class="cta-button" href="commandes.html">Découvrir les commandes clés</a>
-                <a class="ghost-button" href="#parcours">Construire mon parcours</a>
+                <a class="cta-button" href="commandes.html">Explorer la fiche commandes</a>
+                <a class="ghost-button" href="#concepts">Voir les bases visuelles</a>
             </div>
         </div>
-        <div class="hero-cards">
+        <div class="hero-panels">
             <article>
                 <h2>Visualiser</h2>
-                <p>Comprenez les étapes essentielles avec des explications synthétiques et illustrées.</p>
+                <p>Un parcours clair pour maîtriser les étapes d'un dépôt, des premiers commits aux revues de code.</p>
             </article>
             <article>
-                <h2>Pratiquer</h2>
-                <p>Appliquez chaque notion grâce à des enchaînements de commandes faciles à reproduire.</p>
+                <h2>Expérimenter</h2>
+                <p>Des check-lists guidées et des conseils pratiques pour renforcer votre autonomie.</p>
             </article>
             <article>
-                <h2>Collaborer</h2>
-                <p>Adoptez les bons rituels pour travailler à plusieurs sans perdre votre historique.</p>
+                <h2>Partager</h2>
+                <p>Des astuces d'équipe pour fluidifier les échanges, éviter les conflits et documenter vos projets.</p>
             </article>
         </div>
-
-        <div class="wave"></div>
     </header>
 
-    <section class="about">
-        <div class="card">
-            <h3>🌱 Qu’est-ce que Git ?</h3>
-            <p>Git permet de suivre les changements apportés à un projet, de collaborer facilement, et de revenir à tout moment à une version précédente du code.</p>
-        </div>
+    <main class="content">
+        <section id="intro" class="section overview">
+            <div class="section-heading">
+                <h2>Git, c'est quoi exactement&nbsp;?</h2>
+                <p>Un système de contrôle de versions distribué qui garde la trace de chaque évolution de votre code tout en favorisant la collaboration.</p>
+            </div>
+            <div class="overview-grid">
+                <article>
+                    <h3>Historique complet</h3>
+                    <p>Chaque commit capture un instantané de votre projet. Revenez en arrière, explorez, comparez et expérimentez sans crainte.</p>
+                </article>
+                <article>
+                    <h3>Travail distribué</h3>
+                    <p>Tout le monde dispose d'une copie du dépôt. Même hors ligne, vous continuez à travailler et vous fusionnez quand vous êtes prêt.</p>
+                </article>
+                <article>
+                    <h3>Branches flexibles</h3>
+                    <p>Développez plusieurs idées en parallèle. Les branches isolent vos tests et permettent des retours rapides sur la version stable.</p>
+                </article>
+            </div>
+        </section>
 
-        <div class="card">
-            <h3>🧠 Pourquoi l’utiliser ?</h3>
-            <p>Il facilite le travail en équipe, améliore la traçabilité et sécurise vos versions de code. C’est l’outil incontournable du développement moderne.</p>
-        </div>
+        <section id="concepts" class="section concept-deck">
+            <div class="section-heading">
+                <h2>Concepts clés à maîtriser</h2>
+                <p>Appuyez-vous sur ces notions pour comprendre la logique de Git. Dépliez chaque carte pour obtenir une illustration synthétique.</p>
+            </div>
+            <div class="concept-grid">
+                <details>
+                    <summary>Commit</summary>
+                    <p>Un commit enregistre un état du projet. Il doit être petit, clair et accompagné d'un message qui raconte <em>pourquoi</em> vous avez fait ce changement.</p>
+                </details>
+                <details>
+                    <summary>Index (staging)</summary>
+                    <p>Zone tampon entre vos fichiers et l'historique. Vous choisissez précisément ce qui partira dans le prochain commit.</p>
+                </details>
+                <details>
+                    <summary>Branche</summary>
+                    <p>Une branche pointe vers une suite de commits. Travaillez dessus pour développer une fonctionnalité, puis fusionnez-la.</p>
+                </details>
+                <details>
+                    <summary>Remote</summary>
+                    <p>Un dépôt distant partagé avec votre équipe. Habituellement hébergé sur GitHub, GitLab ou Bitbucket.</p>
+                </details>
+                <details>
+                    <summary>Merge</summary>
+                    <p>Combine deux branches. Git tente de concilier les différences ; en cas de conflit, vous arbitrez en choisissant les lignes correctes.</p>
+                </details>
+                <details>
+                    <summary>Rebase</summary>
+                    <p>Réapplique vos commits sur une base mise à jour pour garder un historique linéaire. À utiliser avec précaution en équipe.</p>
+                </details>
+            </div>
+        </section>
 
-        <div class="card">
-            <h3>🌍 Open Source</h3>
-            <p>Git est un logiciel libre créé par Linus Torvalds. Il est gratuit, rapide et compatible avec toutes les plateformes.</p>
-        </div>
-    </section>
+        <section id="workflow" class="section workflow">
+            <div class="section-heading">
+                <h2>Un workflow fluide en 6 étapes</h2>
+                <p>Suivez cette boucle pour délivrer vos fonctionnalités tout en gardant un historique propre et compréhensible.</p>
+            </div>
+            <ol class="workflow-steps">
+                <li>
+                    <h3>Préparer</h3>
+                    <p>Initialisez ou clonez le dépôt, configurez votre identité et récupérez les dernières mises à jour.</p>
+                </li>
+                <li>
+                    <h3>Créer une branche</h3>
+                    <p>Ouvrez une branche dédiée. Nommez-la clairement en fonction de la tâche à accomplir.</p>
+                </li>
+                <li>
+                    <h3>Commiter par petits lots</h3>
+                    <p>Travaillez étape par étape, préparez vos fichiers dans l'index et rédigez des messages courts et descriptifs.</p>
+                </li>
+                <li>
+                    <h3>Tester</h3>
+                    <p>Exécutez vos tests ou vérifications manuelles. Corrigez, puis ajoutez un nouveau commit si nécessaire.</p>
+                </li>
+                <li>
+                    <h3>Partager</h3>
+                    <p>Poussez la branche vers le dépôt distant, ouvrez une demande de fusion et sollicitez un avis.</p>
+                </li>
+                <li>
+                    <h3>Fusionner et nettoyer</h3>
+                    <p>Après validation, fusionnez dans la branche principale, supprimez la branche de travail et diffusez la mise à jour.</p>
+                </li>
+            </ol>
+        </section>
 
-    <footer>
-        <p>Créé avec ❤️ par Yoann et Edwin • 2025</p>
+        <section class="section practice">
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <h2>Vos routines essentielles</h2>
+                    <ul>
+                        <li>Synchronisez votre branche avant de démarrer pour éviter les mauvaises surprises.</li>
+                        <li>Commencez vos messages de commit par un verbe à l'infinitif. Exemple&nbsp;: «&nbsp;Corrige l'affichage mobile&nbsp;».</li>
+                        <li>Documentez les décisions importantes dans la description de la pull request.</li>
+                        <li>Supprimez les branches fusionnées pour garder le dépôt lisible.</li>
+                    </ul>
+                </div>
+                <div class="practice-card accent">
+                    <h2>Checklist avant merge</h2>
+                    <label class="check-item">
+                        <input type="checkbox"> Tests locaux ou CI en réussite
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox"> Conflits résolus et relus
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox"> Relecture d'un pair effectuée
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox"> Documentation ou notes mises à jour
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq">
+            <div class="section-heading">
+                <h2>Questions fréquentes</h2>
+                <p>Besoin de clarifier un comportement Git&nbsp;? Dépliez ces réponses rapides.</p>
+            </div>
+            <div class="faq-grid">
+                <details>
+                    <summary>Quand utiliser <code>git stash</code>&nbsp;?</summary>
+                    <p>Lorsque vous devez changer de branche sans commiter, stashez vos modifications en cours. Vous pourrez les réappliquer plus tard.</p>
+                </details>
+                <details>
+                    <summary>Rebase ou merge&nbsp;?</summary>
+                    <p>Utilisez un merge pour tracer l'origine des branches et un rebase pour garder un historique linéaire. Sur du travail partagé, préférez le merge.</p>
+                </details>
+                <details>
+                    <summary>Comment éviter les conflits repentants&nbsp;?</summary>
+                    <p>Récupérez souvent les nouveautés de la branche principale, communiquez avec votre équipe et découpez vos tâches en petites unités.</p>
+                </details>
+            </div>
+        </section>
+
+        <section id="ressources" class="section resources">
+            <div class="section-heading">
+                <h2>Pour aller plus loin</h2>
+                <p>Un ensemble de ressources pour prolonger l'apprentissage, pratiquer et travailler en équipe.</p>
+            </div>
+            <div class="resource-grid">
+                <article>
+                    <h3>Repository d'entraînement</h3>
+                    <p>Cloner un dépôt volontairement imparfait pour pratiquer les merges, résolutions de conflits et rebase interactifs.</p>
+                </article>
+                <article>
+                    <h3>Revue de code</h3>
+                    <p>Créez une checklist d'évaluation&nbsp;: lisibilité, tests, impacts, performance. Git conserve le fil de discussion.</p>
+                </article>
+                <article>
+                    <h3>Guide d'équipe</h3>
+                    <p>Définissez les conventions de branches, de messages et de tags. Documentez vos flux de release.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2024 Atelier Git — Grandir avec un historique maîtrisé.</p>
+        <p><a href="commandes.html">Consulter les commandes essentielles</a></p>
     </footer>
-
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const nav = document.getElementById('main-nav');
-        navToggle.addEventListener('click', () => {
-            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-            navToggle.setAttribute('aria-expanded', String(!expanded));
-            nav.classList.toggle('open');
-        });
-    </script>
 </body>
 </html>
