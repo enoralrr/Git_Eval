@@ -1,11 +1,15 @@
 (function () {
-    const sequence = [
-        "ArrowUp",
-        "ArrowDown",
-        "ArrowLeft",
-        "ArrowRight"
+    const obfuscationOffset = 7;
+    const encodedSequence = [
+        [72, 121, 121, 118, 126, 92, 119],
+        [72, 121, 121, 118, 126, 75, 118, 126, 117],
+        [72, 121, 121, 118, 126, 83, 108, 109, 123],
+        [72, 121, 121, 118, 126, 89, 112, 110, 111, 123]
     ];
-    const destination = "https://www.youtube.com/watch?v=QDia3e12czc";
+    const sequence = encodedSequence.map((codes) =>
+        String.fromCharCode(...codes.map((code) => code - obfuscationOffset))
+    );
+    const destination = "https://www.youtube.com/watch?v=QDia3e12czc&autoplay=1";
     let index = 0;
 
     function reset() {
