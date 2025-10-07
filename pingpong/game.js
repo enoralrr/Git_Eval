@@ -34,6 +34,63 @@ const GAME_STATE = {
     }
 };
 
+const QUIZ_BANK = [
+    {
+        question: 'Quelle commande affiche la liste des commits d\'une branche ?',
+        options: ['git log', 'git status', 'git branch'],
+        answer: 0,
+        explanation: 'git log liste l\'historique des commits et leurs métadonnées.'
+    },
+    {
+        question: 'Quelle instruction enregistre des fichiers précis pour le prochain commit ?',
+        options: ['git checkout', 'git add', 'git revert'],
+        answer: 1,
+        explanation: 'git add place les modifications sélectionnées dans l\'index (staging).'
+    },
+    {
+        question: 'Quel fichier permet de ne pas versionner certains fichiers ?',
+        options: ['README.md', '.gitignore', '.gitkeep'],
+        answer: 1,
+        explanation: '.gitignore contient les motifs de fichiers à exclure du suivi Git.'
+    },
+    {
+        question: 'Quelle commande récupère les nouveautés depuis un dépôt distant ?',
+        options: ['git pull', 'git init', 'git commit'],
+        answer: 0,
+        explanation: 'git pull fusionne votre branche locale avec les nouvelles mises à jour distantes.'
+    },
+    {
+        question: 'Quel est le rôle principal d\'une branche ?',
+        options: ['Sauvegarder les identifiants', 'Isoler un lot de commits', 'Supprimer l\'historique'],
+        answer: 1,
+        explanation: 'Une branche sert à isoler un flux de travail ou une fonctionnalité.'
+    },
+    {
+        question: 'Que fait git clone ?',
+        options: ['Crée un nouveau dépôt vide', 'Copie un dépôt distant en local', 'Supprime un dépôt local'],
+        answer: 1,
+        explanation: 'git clone télécharge l\'historique et crée un dépôt local identique au distant.'
+    },
+    {
+        question: 'Quelle commande change de branche ?',
+        options: ['git switch', 'git merge', 'git tag'],
+        answer: 0,
+        explanation: 'git switch (ou git checkout) permet de basculer d\'une branche à l\'autre.'
+    }
+];
+
+const quizOverlay = document.getElementById('quizOverlay');
+const quizQuestionEl = document.getElementById('quizQuestion');
+const quizOptionsEl = document.getElementById('quizOptions');
+const quizFeedbackEl = document.getElementById('quizFeedback');
+const quizContinueButton = document.getElementById('quizContinue');
+
+const quizState = {
+    active: false,
+    answered: false,
+    current: null
+};
+
 function resetBall(direction = Math.random() > 0.5 ? 1 : -1) {
     const { ball } = GAME_STATE;
     ball.x = canvas.width / 2;
@@ -49,6 +106,90 @@ function resetMatch() {
     GAME_STATE.cpu.score = 0;
     GAME_STATE.finished = false;
     resetBall();
+}
+
+function showQuiz() {
+    if (!QUIZ_BANK.length) {
+        return;
+    }
+    const question = QUIZ_BANK[Math.floor(Math.random() * QUIZ_BANK.length)];
+    quizState.current = question;
+    quizState.active = true;
+    quizState.answered = false;
+
+    quizQuestionEl.textContent = question.question;
+    quizOptionsEl.innerHTML = '';
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.index = String(index);
+        button.textContent = option;
+        quizOptionsEl.appendChild(button);
+    });
+
+    quizFeedbackEl.textContent = '';
+    quizFeedbackEl.classList.remove('positive', 'negative');
+    quizContinueButton.hidden = true;
+
+    quizOverlay.classList.add('visible');
+    quizOverlay.setAttribute('aria-hidden', 'false');
+}
+
+function hideQuiz() {
+    quizOverlay.classList.remove('visible');
+    quizOverlay.setAttribute('aria-hidden', 'true');
+    quizOptionsEl.innerHTML = '';
+    quizFeedbackEl.textContent = '';
+    quizFeedbackEl.classList.remove('positive', 'negative');
+    quizContinueButton.hidden = true;
+    quizState.active = false;
+    quizState.answered = false;
+    quizState.current = null;
+}
+
+function handleQuizOptionClick(event) {
+    if (!quizState.active || quizState.answered) {
+        return;
+    }
+    const target = event.target;
+    if (!(target instanceof HTMLButtonElement)) {
+        return;
+    }
+    const selectedIndex = Number(target.dataset.index);
+    if (Number.isNaN(selectedIndex) || !quizState.current) {
+        return;
+    }
+
+    const buttons = Array.from(quizOptionsEl.querySelectorAll('button'));
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+
+    const isCorrect = selectedIndex === quizState.current.answer;
+
+    buttons.forEach((button) => {
+        const optionIndex = Number(button.dataset.index);
+        if (optionIndex === quizState.current.answer) {
+            button.classList.add('is-correct');
+        } else if (optionIndex === selectedIndex) {
+            button.classList.add('is-incorrect');
+        }
+    });
+
+    const explanation = quizState.current.explanation;
+    if (isCorrect) {
+        quizFeedbackEl.textContent = `Bonne réponse ! ${explanation}`;
+        quizFeedbackEl.classList.add('positive');
+        quizFeedbackEl.classList.remove('negative');
+    } else {
+        quizFeedbackEl.textContent = `Mauvaise réponse... ${explanation}`;
+        quizFeedbackEl.classList.add('negative');
+        quizFeedbackEl.classList.remove('positive');
+    }
+
+    quizState.answered = true;
+    quizContinueButton.hidden = false;
+    quizContinueButton.focus();
 }
 
 function clampPaddle(paddle) {
@@ -124,6 +265,7 @@ function scorePoint(winner) {
         GAME_STATE.finished = true;
     }
     resetBall(winner === 'player' ? 1 : -1);
+    showQuiz();
 }
 
 function drawBoard() {
@@ -194,6 +336,9 @@ function step() {
 }
 
 function toggleGame() {
+    if (quizState.active) {
+        return;
+    }
     if (GAME_STATE.finished) {
         return;
     }
@@ -208,6 +353,7 @@ function toggleGame() {
 }
 
 function resetGame() {
+    hideQuiz();
     resetMatch();
     GAME_STATE.running = false;
 }
@@ -240,6 +386,11 @@ document.addEventListener('keyup', handleKeyUp);
 document.getElementById('startButton').addEventListener('click', toggleGame);
 document.getElementById('resetButton').addEventListener('click', () => {
     resetGame();
+});
+
+quizOptionsEl.addEventListener('click', handleQuizOptionClick);
+quizContinueButton.addEventListener('click', () => {
+    hideQuiz();
 });
 
 resetGame();
