@@ -32,8 +32,11 @@ const GAME_STATE = {
         height: 90,
         x: canvas.width - 42,
         y: canvas.height / 2 - 45,
-        dy: 0,
-        speed: 4.8,
+        direction: 0,
+        speedBase: 1.5,
+        speedCurrent: 0,
+        speedMax: 3.8,
+        acceleration: 1.05,
         score: 0
     }
 };
@@ -127,6 +130,8 @@ function resetMatch() {
     KEY_STATE.down = false;
     GAME_STATE.player.direction = 0;
     GAME_STATE.player.speedCurrent = 0;
+    GAME_STATE.cpu.direction = 0;
+    GAME_STATE.cpu.speedCurrent = 0;
     resetBall();
 }
 
@@ -159,6 +164,8 @@ function showQuiz() {
     KEY_STATE.down = false;
     updatePlayerDirection();
     GAME_STATE.player.speedCurrent = 0;
+    GAME_STATE.cpu.direction = 0;
+    GAME_STATE.cpu.speedCurrent = 0;
 }
 
 function hideQuiz() {
@@ -239,9 +246,23 @@ function updatePlayer() {
 
 function updateCpu() {
     const { cpu, ball } = GAME_STATE;
-    const target = ball.y - cpu.height / 2;
-    const smoothing = 0.08;
-    cpu.y += (target - cpu.y) * smoothing;
+    const paddleCenter = cpu.y + cpu.height / 2;
+    const delta = ball.y - paddleCenter;
+    const deadZone = 12;
+
+    if (Math.abs(delta) <= deadZone) {
+        cpu.direction = 0;
+        cpu.speedCurrent = 0;
+    } else {
+        cpu.direction = delta < 0 ? -1 : 1;
+        if (cpu.speedCurrent === 0) {
+            cpu.speedCurrent = cpu.speedBase;
+        } else {
+            cpu.speedCurrent = Math.min(cpu.speedCurrent * cpu.acceleration, cpu.speedMax);
+        }
+        cpu.y += cpu.direction * cpu.speedCurrent;
+    }
+
     clampPaddle(cpu);
 }
 
@@ -306,6 +327,8 @@ function scorePoint(winner) {
     KEY_STATE.down = false;
     updatePlayerDirection();
     GAME_STATE.player.speedCurrent = 0;
+    GAME_STATE.cpu.direction = 0;
+    GAME_STATE.cpu.speedCurrent = 0;
     resetBall(winner === 'player' ? 1 : -1);
     if (winner === 'player' && !GAME_STATE.finished) {
         showQuiz();
