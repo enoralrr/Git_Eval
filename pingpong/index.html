@@ -4,13 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini-jeu Ping Pong</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header class="game-topbar">
+        <nav class="top-nav">
+            <a class="logo" href="../index.html">Atelier Git</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#intro">Découvrir</a></li>
+                <li><a href="../index.html#concepts">Concepts</a></li>
+                <li><a href="../index.html#workflow">Workflow</a></li>
+                <li><a href="../index.html#ressources">Ressources</a></li>
+                <li><a href="../commandes.html">Commandes</a></li>
+                <li><a class="active" href="index.html">Ping Pong</a></li>
+            </ul>
+        </nav>
+    </header>
     <main class="game-wrapper">
         <header class="game-header">
             <h1>Ping Pong</h1>
-            <p>Contrôlez la raquette gauche avec les touches <strong>W</strong> et <strong>S</strong>. La raquette droite est gérée automatiquement.</p>
+            <p>Contrôlez la raquette gauche avec les touches <strong>Z</strong> et <strong>S</strong>. La raquette droite est gérée automatiquement.</p>
         </header>
         <section class="game-area">
             <canvas id="pong" width="780" height="480" aria-label="Table de ping pong"></canvas>

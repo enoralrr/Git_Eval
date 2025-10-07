@@ -7,10 +7,29 @@ body {
     margin: 0;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
     background: radial-gradient(circle at top, #0f172a, #020617 60%);
     color: #f1f5f9;
+}
+
+.game-topbar {
+    background: linear-gradient(140deg, #0b1220, #132032);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow: 0 14px 28px -18px rgba(15, 23, 42, 0.8);
+}
+
+.game-topbar .top-nav {
+    max-width: min(1080px, 94vw);
+    margin: 0 auto;
+}
+
+.game-topbar .nav-links a {
+    color: rgba(241, 245, 249, 0.88);
+}
+
+.game-topbar .nav-links .active {
+    border-color: #38bdf8;
 }
 
 .game-wrapper {
@@ -20,6 +39,7 @@ body {
     border: 1px solid rgba(148, 163, 184, 0.25);
     border-radius: 20px;
     box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.6);
+    margin: 2.5rem auto;
 }
 
 .game-header {

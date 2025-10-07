@@ -7,8 +7,9 @@ const GAME_STATE = {
     targetScore: 5,
     ball: {
         size: 12,
-        baseSpeed: 3.2,
-        maxSpeed: 8.5,
+        baseSpeed: 1.6,
+        maxSpeed: 5.2,
+        growthFactor: 1.07,
         x: canvas.width / 2,
         y: canvas.height / 2,
         vx: 0,
@@ -19,8 +20,11 @@ const GAME_STATE = {
         height: 90,
         x: 30,
         y: canvas.height / 2 - 45,
-        dy: 0,
-        speed: 6,
+        direction: 0,
+        speedBase: 1.5,
+        speedCurrent: 0,
+        speedMax: 3.8,
+        acceleration: 1.06,
         score: 0
     },
     cpu: {
@@ -29,7 +33,7 @@ const GAME_STATE = {
         x: canvas.width - 42,
         y: canvas.height / 2 - 45,
         dy: 0,
-        speed: 5.2,
+        speed: 4.8,
         score: 0
     }
 };
@@ -91,12 +95,26 @@ const quizState = {
     current: null
 };
 
+const KEY_STATE = {
+    up: false,
+    down: false
+};
+
+function updatePlayerDirection() {
+    if (KEY_STATE.up === KEY_STATE.down) {
+        GAME_STATE.player.direction = 0;
+        return;
+    }
+    GAME_STATE.player.direction = KEY_STATE.up ? -1 : 1;
+}
+
 function resetBall(direction = Math.random() > 0.5 ? 1 : -1) {
     const { ball } = GAME_STATE;
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
     const angle = (Math.random() * 0.7 - 0.35) * Math.PI; // petit angle pour varier
-    const speed = ball.baseSpeed + Math.random() * 2;
+    const variation = 0.85 + Math.random() * 0.3;
+    const speed = ball.baseSpeed * variation;
     ball.vx = Math.cos(angle) * speed * direction;
     ball.vy = Math.sin(angle) * speed;
 }
@@ -105,6 +123,10 @@ function resetMatch() {
     GAME_STATE.player.score = 0;
     GAME_STATE.cpu.score = 0;
     GAME_STATE.finished = false;
+    KEY_STATE.up = false;
+    KEY_STATE.down = false;
+    GAME_STATE.player.direction = 0;
+    GAME_STATE.player.speedCurrent = 0;
     resetBall();
 }
 
@@ -133,6 +155,10 @@ function showQuiz() {
 
     quizOverlay.classList.add('visible');
     quizOverlay.setAttribute('aria-hidden', 'false');
+    KEY_STATE.up = false;
+    KEY_STATE.down = false;
+    updatePlayerDirection();
+    GAME_STATE.player.speedCurrent = 0;
 }
 
 function hideQuiz() {
@@ -197,8 +223,18 @@ function clampPaddle(paddle) {
 }
 
 function updatePlayer() {
-    GAME_STATE.player.y += GAME_STATE.player.dy;
-    clampPaddle(GAME_STATE.player);
+    const player = GAME_STATE.player;
+    if (player.direction !== 0) {
+        if (player.speedCurrent === 0) {
+            player.speedCurrent = player.speedBase;
+        } else {
+            player.speedCurrent = Math.min(player.speedCurrent * player.acceleration, player.speedMax);
+        }
+        player.y += player.direction * player.speedCurrent;
+    } else {
+        player.speedCurrent = 0;
+    }
+    clampPaddle(player);
 }
 
 function updateCpu() {
@@ -229,7 +265,8 @@ function updateBall() {
     ) {
         const collidePoint = (ball.y - (player.y + player.height / 2)) / (player.height / 2);
         const angle = collidePoint * (Math.PI / 3);
-        const speed = Math.min(Math.hypot(ball.vx, ball.vy) + 0.5, GAME_STATE.ball.maxSpeed);
+        const prevSpeed = Math.max(Math.hypot(ball.vx, ball.vy), GAME_STATE.ball.baseSpeed);
+        const speed = Math.min(prevSpeed * GAME_STATE.ball.growthFactor, GAME_STATE.ball.maxSpeed);
         ball.vx = Math.cos(angle) * speed;
         ball.vy = Math.sin(angle) * speed;
         ball.vx = Math.abs(ball.vx);
@@ -244,7 +281,8 @@ function updateBall() {
     ) {
         const collidePoint = (ball.y - (cpu.y + cpu.height / 2)) / (cpu.height / 2);
         const angle = collidePoint * (Math.PI / 3);
-        const speed = Math.min(Math.hypot(ball.vx, ball.vy) + 0.5, GAME_STATE.ball.maxSpeed);
+        const prevSpeed = Math.max(Math.hypot(ball.vx, ball.vy), GAME_STATE.ball.baseSpeed);
+        const speed = Math.min(prevSpeed * GAME_STATE.ball.growthFactor, GAME_STATE.ball.maxSpeed);
         ball.vx = -Math.cos(angle) * speed;
         ball.vy = Math.sin(angle) * speed;
         ball.vx = -Math.abs(ball.vx);
@@ -261,11 +299,17 @@ function updateBall() {
 function scorePoint(winner) {
     GAME_STATE[winner].score += 1;
     GAME_STATE.running = false;
-    if (GAME_STATE[winner].score >= GAME_STATE.targetScore) {
+    if (winner === 'player' && GAME_STATE.player.score >= GAME_STATE.targetScore) {
         GAME_STATE.finished = true;
     }
+    KEY_STATE.up = false;
+    KEY_STATE.down = false;
+    updatePlayerDirection();
+    GAME_STATE.player.speedCurrent = 0;
     resetBall(winner === 'player' ? 1 : -1);
-    showQuiz();
+    if (winner === 'player' && !GAME_STATE.finished) {
+        showQuiz();
+    }
 }
 
 function drawBoard() {
@@ -308,8 +352,7 @@ function drawOverlay() {
     ctx.textAlign = 'center';
 
     if (GAME_STATE.finished) {
-        const message = GAME_STATE.player.score > GAME_STATE.cpu.score ? 'Victoire !' : 'Perdu...';
-        ctx.fillText(message, canvas.width / 2, canvas.height / 2 - 20);
+        ctx.fillText('Victoire !', canvas.width / 2, canvas.height / 2 - 20);
         ctx.font = '20px Manrope, sans-serif';
         ctx.fillText('Cliquez sur Réinitialiser pour relancer une partie.', canvas.width / 2, canvas.height / 2 + 25);
     } else {
@@ -359,24 +402,49 @@ function resetGame() {
 }
 
 function handleKeyDown(event) {
-    if (event.code === 'KeyW') {
-        GAME_STATE.player.dy = -GAME_STATE.player.speed;
+    if (quizState.active) {
+        if (['KeyW', 'KeyS', 'ArrowUp', 'ArrowDown', 'Space'].includes(event.code)) {
+            event.preventDefault();
+        }
+        return;
     }
-    if (event.code === 'KeyS') {
-        GAME_STATE.player.dy = GAME_STATE.player.speed;
-    }
-    if (event.code === 'Space') {
-        event.preventDefault();
-        toggleGame();
-    }
-    if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
-        event.preventDefault();
+
+    switch (event.code) {
+        case 'KeyW':
+            KEY_STATE.up = true;
+            updatePlayerDirection();
+            break;
+        case 'KeyS':
+            KEY_STATE.down = true;
+            updatePlayerDirection();
+            break;
+        case 'Space':
+            event.preventDefault();
+            toggleGame();
+            break;
+        case 'ArrowUp':
+        case 'ArrowDown':
+            event.preventDefault();
+            break;
+        default:
+            break;
     }
 }
 
 function handleKeyUp(event) {
-    if (event.code === 'KeyW' || event.code === 'KeyS') {
-        GAME_STATE.player.dy = 0;
+    if (quizState.active) {
+        if (['KeyW', 'KeyS'].includes(event.code)) {
+            event.preventDefault();
+        }
+        return;
+    }
+    if (['KeyW', 'KeyS'].includes(event.code)) {
+        if (event.code === 'KeyW') {
+            KEY_STATE.up = false;
+        } else {
+            KEY_STATE.down = false;
+        }
+        updatePlayerDirection();
     }
 }
 
@@ -391,6 +459,9 @@ document.getElementById('resetButton').addEventListener('click', () => {
 quizOptionsEl.addEventListener('click', handleQuizOptionClick);
 quizContinueButton.addEventListener('click', () => {
     hideQuiz();
+    if (!GAME_STATE.finished) {
+        GAME_STATE.running = true;
+    }
 });
 
 resetGame();
