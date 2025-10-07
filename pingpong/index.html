@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-jeu Ping Pong</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-wrapper">
+        <header class="game-header">
+            <h1>Ping Pong</h1>
+            <p>Contrôlez la raquette gauche avec les touches <strong>W</strong> et <strong>S</strong>. La raquette droite est gérée automatiquement.</p>
+        </header>
+        <section class="game-area">
+            <canvas id="pong" width="780" height="480" aria-label="Table de ping pong"></canvas>
+            <div class="controls">
+                <button id="startButton" type="button">Lancer / Reprendre</button>
+                <button id="resetButton" type="button">Réinitialiser</button>
+                <a class="back-link" href="../index.html">Retour à l'accueil</a>
+            </div>
+        </section>
+        <footer class="game-footer">
+            <p>Marquez 5 points pour gagner. Bonne partie !</p>
+        </footer>
+    </main>
+    <script src="game.js"></script>
+</body>
+</html>
